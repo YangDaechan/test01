@@ -11,7 +11,7 @@ public class test01 {
 	public static void main(String[] args) {
 		
 		Connection con = null;
-		Statement stmt = null;
+		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 
 		try {
@@ -20,7 +20,9 @@ public class test01 {
 			System.out.println("JDBC 드라이버 로드 성공");
 			con = DriverManager.getConnection(URL, USER, PASSWORD);
 			System.out.println("데이터베이스 연결 성공");
-			stmt = con.createStatement();
+			pstmt = con.prepareStatement("insert into tbl_department values(seq_department.nextval, ?)");
+			
+			pstmt.setString(1, "컴퓨터공학");
 
 		} catch (SQLException se) {
 			System.out.println("연결 실패");
